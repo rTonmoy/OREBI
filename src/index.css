@@ -1,0 +1,32 @@
+*{
+    outline: 0;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.slick-dots .slick-active div{
+    border-right: 3px solid #262626 !important;
+    color: #262626 !important;
+}
+@media(max-width:640px){
+    .ami{
+        padding: 0 0 !important;
+        
+    }
+    .okay{
+        margin-left: -60px !important;
+    }
+}
+
+@media(max-width:640px){
+    .hello{
+        left: 0 !important
+    }
+}
+@media(min-width:641px) and (max-width:767px){
+    .hello{
+        left: -30px !important
+    }
+}
