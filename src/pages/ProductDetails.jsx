@@ -18,7 +18,7 @@ const ProductDetails = () => {
   let [shipShow, setShipShow] = useState(false);
 
   let productId = useParams();
-  const dispatch = useDispatch();
+  let dispatch = useDispatch();
 
   let [singleProduct, setsingleProduct] = useState([]);
   let dataId = () => {
@@ -45,7 +45,7 @@ const ProductDetails = () => {
   });
 
   let handleAddtoCart = (item)=>{
-    dispatch =(addToCart(item))
+    dispatch(addToCart({...item, qun:1}))
   }
 
   return (
