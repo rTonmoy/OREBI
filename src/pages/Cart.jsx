@@ -1,15 +1,31 @@
 import React from "react";
 import Container from "../components/Container";
 import Flex from "../components/Flex";
-import one from "../assets/cartimg.png"
+import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import { productIncrement, productDecrement } from "../components/slice/productSlice";
+import {
+  productIncrement,
+  productDecrement,
+  removeProduct,
+} from "../components/slice/productSlice";
 
 const Cart = () => {
-  let dispatch = useDispatch()
-  let data = useSelector((state)=>state.product.cartItem)
+  let dispatch = useDispatch();
+  let data = useSelector((state) => state.product.cartItem);
+
+  const { totalprice, totalQuantity } = data.reduce(
+    (acc, item) => {
+      acc.totalprice += item.price * item.qun;
+      acc.totalQuantity += item.qun;
+
+      return acc;
+    },
+    { totalprice: 0, totalQuantity: 0 }
+  );
+
+  console.log(totalprice);
 
   return (
     <Container>
@@ -40,61 +56,117 @@ const Cart = () => {
         </div>
       </Flex>
 
-      {data.map((item, i)=>(
-              <Flex className="justify-between flex-wrap pt-3 pb-10 px-3 items-center border-[1px] border-[#F0F0F0]">
-              <div className="w-[25%] flex justify-around items-center">
-                <div className=""><RxCross2/></div>
-                <div className=""><img className="w-[100px] h-[100px]" src={item.thumbnail}  alt="" /></div>
-                <div className=""><h4 className=" font-DM font-bold text-[14px] text-[#262626]">{item.title}</h4></div>
+      {data.map((item, i) => (
+        <Flex className="justify-between flex-wrap pt-3 pb-10 px-3 items-center border-[1px] border-[#F0F0F0]">
+          <div className="w-[25%] flex justify-around items-center">
+            <div onClick={() => dispatch(removeProduct(i))} className="">
+              <RxCross2 />
+            </div>
+            <div className="">
+              <img
+                className="w-[100px] h-[100px]"
+                src={item.thumbnail}
+                alt=""
+              />
+            </div>
+            <div className="">
+              <h4 className=" font-DM font-bold text-[14px] text-[#262626]">
+                {item.title}
+              </h4>
+            </div>
+          </div>
+          <div className="w-[25%]">
+            <h4 className=" font-DM font-bold text-[15px] text-[#262626]">
+              ${item.price}
+            </h4>
+          </div>
+          <div className="w-[25%]">
+            <div className="flex items-center py-7">
+              <div className="flex items-center justify-around border-[1px] border-[#F0F0F0] py-1 px-2">
+                <h5
+                  onClick={() => dispatch(productDecrement(i))}
+                  className=" font-DM pr-8  text-[#767676] cursor-pointer"
+                >
+                  -
+                </h5>
+                <h5 className=" font-DM pr-8 text-[#767676]">{item.qun}</h5>
+                <h5
+                  onClick={() => dispatch(productIncrement(i))}
+                  className=" font-DM  text-[#767676] cursor-pointer"
+                >
+                  +
+                </h5>
               </div>
-              <div className="w-[25%]">
-                <h4 className=" font-DM font-bold text-[15px] text-[#262626]">
-                  ${item.price}
-                </h4>
-              </div>
-              <div className="w-[25%]">
-                <div className="flex items-center py-7">
-                  <div className="flex items-center justify-around border-[1px] border-[#F0F0F0] py-1 px-2">
-                    <h5 onClick={()=>dispatch(productDecrement(i))} className=" font-DM pr-8  text-[#767676] cursor-pointer">-</h5>
-                    <h5 className=" font-DM pr-8 text-[#767676]">{item.qun}</h5>
-                    <h5 onClick={()=>dispatch(productIncrement(i))} className=" font-DM  text-[#767676] cursor-pointer">+</h5>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[25%]">
-                <h4 className=" font-DM font-bold text-[15px] text-[#262626]">
-                  ${item.price * item.qun}
-                </h4>
-              </div>
-            </Flex>
+            </div>
+          </div>
+          <div className="w-[25%]">
+            <h4 className=" font-DM font-bold text-[15px] text-[#262626]">
+              ${item.price * item.qun}
+            </h4>
+          </div>
+        </Flex>
       ))}
 
       <Flex className="justify-between items-center flex-wrap border-[1px] border-[#F0F0F0] py-3">
         <div className="w-[25%]">
           <div className="flex justify-between items-center">
             <div className="flex justify-between w-[40%] items-center ml-[50px] border-[1px] border-[#EAEAEA] p-2">
-              <div className=""><p className=" font-DM text-[15px] text-[#767676]">SIZE</p></div>
-              <div className=""><TiArrowSortedDown className="text-[#767676]"/></div>
+              <div className="">
+                <p className=" font-DM text-[15px] text-[#767676]">SIZE</p>
+              </div>
+              <div className="">
+                <TiArrowSortedDown className="text-[#767676]" />
+              </div>
             </div>
-            <div className=""><h4 className=" font-DM font-bold text-[14px] text-[#262626] text-right mr-5">Apply coupon</h4></div>
+            <div className="">
+              <h4 className=" font-DM font-bold text-[14px] text-[#262626] text-right mr-5">
+                Apply coupon
+              </h4>
+            </div>
           </div>
         </div>
-        <div className="w-[50%]"><p className=" font-DM font-bold text-[14px] text-[#262626] text-right mr-5">Update cart</p></div>
+        <div className="w-[50%]">
+          <p className=" font-DM font-bold text-[14px] text-[#262626] text-right mr-5">
+            Update cart
+          </p>
+        </div>
       </Flex>
 
       <div className="text-right py-8">
-        <h4 className=" font-DM font-bold text-[18px] text-[#262626] pb-5">Cart totals</h4>
+        <h4 className=" font-DM font-bold text-[18px] text-[#262626] pb-5">
+          Cart totals
+        </h4>
         <div className="">
-          <span  className="font-DM font-bold text-[15px] text-[#262626] border-[1px] border-[#F0F0F0] py-4 pl-2 pr-[150px]">Subtotal</span>
-          <span  className="font-DM font-bold text-[15px] text-[#767676] border-[1px] border-[#F0F0F0] py-4 pl-2 pr-[150px]">389.99 $</span>
+          <span className="font-DM font-bold text-[15px] text-[#262626] border-[1px] border-[#F0F0F0] py-4 pl-2 w-[300px] inline-block text-start">
+            Subtotal
+          </span>
+          <span className="font-DM font-bold text-[15px] text-[#767676] border-[1px] border-[#F0F0F0] py-4 pl-2 w-[300px] inline-block text-start">
+            ${totalprice}
+          </span>
         </div>
-        <div className=" py-7">
-          <span  className="font-DM font-bold text-[15px] text-[#262626] border-[1px] border-[#F0F0F0] py-4 pl-2 pr-[150px]">Subtotal</span>
-          <span  className="font-DM font-bold text-[15px] text-[#767676] border-[1px] border-[#F0F0F0] py-4 pl-2 pr-[150px]">389.99 $</span>
+        <div className="">
+          <span className="font-DM font-bold text-[15px] text-[#262626] border-[1px] border-[#F0F0F0] py-4 pl-2  w-[300px] inline-block text-start">
+            Total Quantity
+          </span>
+          <span className="font-DM font-bold text-[15px] text-[#767676] border-[1px] border-[#F0F0F0] py-4 pl-2  w-[300px] inline-block text-start">
+            {totalQuantity}
+          </span>
         </div>
-        <div className="mt-3 mb-14">
-          <p className="bg-[#262626] font-DM font-bold inline-block text-[#fff] px-[30px] py-2 text-[14px]">Proceed to Checkout</p>
+        <div className=" pb-7">
+          <span className="font-DM font-bold text-[15px] text-[#262626] border-[1px] border-[#F0F0F0] py-4 pl-2  w-[300px] inline-block text-start">
+            Total
+          </span>
+          <span className="font-DM font-bold text-[15px] text-[#767676] border-[1px] border-[#F0F0F0] py-4 pl-2  w-[300px] inline-block text-start">
+            ${totalprice}
+          </span>
         </div>
+          <div className="mt-3 mb-14">
+            <Link to="/checkout">
+            <p className="border-[1px] border-[#262626] font-DM font-bold inline-block text-[#262626] px-[30px] py-4 text-[14px] hover:bg-[#262626] hover:text-[#fff] duration-500 ease-in-out">
+              Proceed to Checkout
+            </p>
+            </Link>
+          </div>
       </div>
     </Container>
   );

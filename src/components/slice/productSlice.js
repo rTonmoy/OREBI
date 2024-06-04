@@ -26,11 +26,15 @@ export const productSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.cartItem))
       }
     },
+    removeProduct : (state,action) =>{
+      state.cartItem.splice(action.payload, 1)
+        localStorage.setItem("cart", JSON.stringify(state.cartItem))
+    },
 
 
   },
 })
 
-export const { addToCart, productIncrement, productDecrement } = productSlice.actions
+export const { addToCart, productIncrement, productDecrement,removeProduct } = productSlice.actions
 
 export default productSlice.reducer

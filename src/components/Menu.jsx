@@ -6,8 +6,10 @@ import { FaBarsProgress } from "react-icons/fa6";
 import { useRef } from "react";
 import cart from "../assets/cart.png";
 import { ImCross } from "react-icons/im";
+import {useSelector} from "react-redux";
 
 const Menu = () => {
+  let data = useSelector((state)=>state.product.cartItem)
   let [cateshow, setCateshow] = useState(false);
   let cateMenu = useRef();
 
@@ -19,6 +21,7 @@ const Menu = () => {
 
   let [elecshow, setElecshow] = useState(false);
   let elecMenu = useRef();
+
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -172,6 +175,7 @@ const Menu = () => {
                   </div>
                 }
                 <div ref={cartMenu} className="relative">
+                  {data.length ? <div className="bg-[#F5F5F3] w-[20px] h-[20px] absolute top-[-12px] left-[12px] text-center leading-[20px] rounded-full">{data.length}</div> : ""}
                   <FaShoppingCart className="text-[20px]" />
                 </div>
               </div>
