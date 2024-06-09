@@ -15,6 +15,7 @@ const Product = () => {
   let [branShow, setBranshow] = useState(false);
   let [cateShow, setCateshow] = useState(false);
   let [category, setCategory] = useState([]);
+  let [categoryFilter, setCategoryFilter] = useState([]);
 
   let data = useContext(ApiData);
 
@@ -27,7 +28,7 @@ const Product = () => {
   let allPage = data.slice(firstPage, lastpage);
 
   let pageNumber = [];
-  for (let i = 0; i < Math.ceil(data.length / perPage); i++) {
+  for (let i = 0; i < Math.ceil(categoryFilter.length > 0 ? categoryFilter : data.length / perPage); i++) {
     pageNumber.push(i);
   }
 
@@ -51,6 +52,13 @@ const Product = () => {
     setCategory([...new Set(data.map((item) => item.category))]);
   }, [data]);
 
+  let handleCategory = (citem)=>{
+    let cateFilter = data.filter((item)=>item.category == citem)
+    setCategoryFilter(cateFilter)
+  }
+  
+
+
   return (
     <div>
       <Container>
@@ -65,8 +73,8 @@ const Product = () => {
 
         <Flex className="justify-between">
           <div className="w-[20%]">
-            <div onClick={() => setCateshow(!cateShow)} className="">
-              <div className="flex justify-between items-center">
+            <div  className="">
+              <div onClick={() => setCateshow(!cateShow)} className="flex justify-between items-center">
                 <h3 className=" font-DM font-bold text-[18px] text-[#262626]">
                   Shop by Category
                 </h3>
@@ -77,7 +85,7 @@ const Product = () => {
                 <div className="">
                   {category.map((item) => (
                     <div className="border-b-[1px] border-[#F0F0F0] pt-[20px] pb-[19px]">
-                      <p className="font-DM text-[16px] text-[#767676]">
+                      <p onClick={()=>handleCategory(item)} className="font-DM text-[16px] text-[#767676]">
                       {item}
                     </p>
                     </div>
@@ -86,8 +94,8 @@ const Product = () => {
               )}
             </div>
 
-            <div onClick={() => setColshow(!colShow)} className="">
-              <div className="flex justify-between items-center pt-9">
+            <div  className="">
+              <div onClick={() => setColshow(!colShow)} className="flex justify-between items-center pt-9">
                 <h3 className=" font-DM font-bold text-[18px] text-[#262626]">
                   Shop by Color
                 </h3>
@@ -133,8 +141,8 @@ const Product = () => {
               )}
             </div>
 
-            <div onClick={() => setBranshow(!branShow)} className="">
-              <div className="flex justify-between items-center pt-9">
+            <div  className="">
+              <div onClick={() => setBranshow(!branShow)} className="flex justify-between items-center pt-9">
                 <h3 className=" font-DM font-bold text-[18px] text-[#262626]">
                   Shop by Brand
                 </h3>
@@ -221,7 +229,7 @@ const Product = () => {
             </div>
 
             <div className="">
-              <Post allPage={allPage} />
+              <Post allPage={allPage} categoryFilter={categoryFilter} />
             </div>
             <div className="">
               <PaginationArea

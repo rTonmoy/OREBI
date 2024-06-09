@@ -1,9 +1,11 @@
 import React from "react";
 
 const PaginationArea = ({ pageNumber,paginate,pageStart,next,prev }) => {
+  
   return (
     <nav aria-label="Page navigation example">
-      <ul class="inline-flex -space-x-px text-sm">
+      <ul class="inline-flex -space-x-px text-sm pt-10 pb-[80px]">
+        {pageNumber.length > 0 &&
         <li onClick={prev}>
           <a
             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border rounded-l-lg cursor-pointer"
@@ -11,6 +13,7 @@ const PaginationArea = ({ pageNumber,paginate,pageStart,next,prev }) => {
             Previous
           </a>
         </li>
+         }
         {pageNumber.map((item, i) => (
           <li onClick={()=>paginate(item)}>
             <a
@@ -22,6 +25,7 @@ const PaginationArea = ({ pageNumber,paginate,pageStart,next,prev }) => {
           </li>
         ))}
 
+        {pageNumber.length > 0 &&
         <li onClick={next}>
           <a
             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border  rounded-e-lg cursor-pointer"
@@ -29,6 +33,7 @@ const PaginationArea = ({ pageNumber,paginate,pageStart,next,prev }) => {
             Next
           </a>
         </li>
+        }
       </ul>
     </nav>
   );
