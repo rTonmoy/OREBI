@@ -201,10 +201,10 @@ const Menu = () => {
                     </div>
                     <div className="flex justify-between py-[20px]">
                         <div className="">
-                            <a href="#" className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>View Cart</a>
+                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>View Cart</a>
                         </div>
                         <div className="">
-                            <a href="#" className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>Checkout</a>
+                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>Checkout</a>
                         </div>
                     </div>
                 </div>

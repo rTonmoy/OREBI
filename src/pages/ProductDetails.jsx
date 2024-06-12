@@ -266,7 +266,6 @@ const ProductDetails = () => {
         <div className=" pt-12 pb-[300px]">
           <a
             className="px-[80px] py-[15px] bg-[#262626] font-DM font-bold text-[14px] text-[#fff]"
-            href="#"
           >
             Post
           </a>

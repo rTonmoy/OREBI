@@ -4,11 +4,11 @@ import Flex from "../components/Flex";
 import { FiPlus } from "react-icons/fi";
 import { RiArrowUpSFill, RiArrowDownSFill } from "react-icons/ri";
 import { IoGrid } from "react-icons/io5";
-import { BsGrid1X2Fill } from "react-icons/bs";
 import { ApiData } from "../components/ContextApi";
 import Post from "../components/pagination/Post";
 import PaginationArea from "../components/pagination/PaginationArea";
 import { FaMinus } from "react-icons/fa";
+import { TfiMenuAlt } from "react-icons/tfi";
 
 const Product = () => {
   let [colShow, setColshow] = useState(false);
@@ -16,6 +16,7 @@ const Product = () => {
   let [cateShow, setCateshow] = useState(false);
   let [category, setCategory] = useState([]);
   let [categoryFilter, setCategoryFilter] = useState([]);
+  let [multi, setMulti] = useState("");
 
   let data = useContext(ApiData);
 
@@ -57,6 +58,13 @@ const Product = () => {
     setCategoryFilter(cateFilter)
   }
   
+  let handleList = ()=>{
+    setMulti("activeMulti")
+  }
+
+  let handleGrid = ()=>{
+    setMulti("")
+  }
 
 
   return (
@@ -219,17 +227,17 @@ const Product = () => {
           <div className="w-[76%]">
             <div className="">
               <div className="flex mb-6">
-                <div className="p-[10px] border-[1px] mr-2 border-[#767676]  bg-[transparent] hover:bg-[#222] text-[#222] hover:text-[#fff] duration-500 ease-in-out text-[19px]">
+                <div onClick={handleGrid} className="p-[10px] border-[1px] mr-2 border-[#767676]  bg-[transparent] hover:bg-[#222] text-[#222] hover:text-[#fff] duration-500 ease-in-out text-[19px]">
                   <IoGrid className="" />
                 </div>
-                <div className="p-[10px] border-[1px] border-[#767676] bg-[transparent] hover:bg-[#222] text-[#222] hover:text-[#fff] duration-500 ease-in-out text-[18px]">
-                  <BsGrid1X2Fill />
+                <div onClick={handleList} className="p-[10px] border-[1px] border-[#767676] bg-[transparent] hover:bg-[#222] text-[#222] hover:text-[#fff] duration-500 ease-in-out text-[18px]">
+                  <TfiMenuAlt />
                 </div>
               </div>
             </div>
 
             <div className="">
-              <Post allPage={allPage} categoryFilter={categoryFilter} />
+              <Post allPage={allPage} categoryFilter={categoryFilter} multi={multi}  />
             </div>
             <div className="">
               <PaginationArea

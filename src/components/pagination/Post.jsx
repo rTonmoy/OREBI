@@ -3,10 +3,16 @@ import { IoIosHeart } from "react-icons/io";
 import { TfiReload } from "react-icons/tfi";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../slice/productSlice";
+import { useNavigate } from "react-router-dom";
 
-const Post = ({ allPage, categoryFilter }) => {
+const Post = ({ allPage, categoryFilter, multi }) => {
 
+  let dispatch = useDispatch()
+  let navigate = useNavigate()
   let [filterShow, setFilterShow] = useState([])
+  let [count, setCount] =useState(true)
 
   useEffect(()=>{
     let filterVag = categoryFilter.slice(0,5)
@@ -15,6 +21,14 @@ const Post = ({ allPage, categoryFilter }) => {
 
   let handleFilShow = ()=>{
     setFilterShow(categoryFilter)
+    setCount(false)
+  }
+
+  let handlePcart = (item)=>{
+    dispatch(addToCart({...item, qun:1}))
+    setTimeout(()=>{
+      navigate("/product")
+    })
   }
 
   return (
@@ -68,10 +82,18 @@ const Post = ({ allPage, categoryFilter }) => {
           </div>
         ))}
           </div>
-        <h2 onClick={handleFilShow}>Show All</h2>
+
+          {count
+          ? categoryFilter.length > 5 &&
+          <div className="">
+          <h2 onClick={handleFilShow}>Show All</h2>
+          </div>
+          : <h2>Show less</h2>
+        }
+
          </div>
          :
-         <div className="flex justify-between flex-wrap">
+         <div className={`${multi == "activeMulti" ? "" : "flex justify-between flex-wrap"}`}>
           {allPage.map((item) => (
           <div className="w-[32%]">
              <Link to={`/product/${item.id}`}>
@@ -91,7 +113,7 @@ const Post = ({ allPage, categoryFilter }) => {
                   <TfiReload />
                 </div>
                 <div className="flex items-center justify-end gap-x-3 py-1 mr-4">
-                  <p className=" font-DM font-normal text-[15px] text-[#767676] hover:text-[#262626] hover:font-bold duration-500 ease-in-out">
+                  <p onClick={()=>handlePcart(item)} className=" font-DM font-normal text-[15px] text-[#767676] hover:text-[#262626] hover:font-bold duration-500 ease-in-out">
                     Add to Cart
                   </p>
                   <FaShoppingCart />
