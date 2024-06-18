@@ -22,8 +22,8 @@ const Navbar = () => {
                 <ul className={`lg:flex justify-center lg:static absolute z-50 text-center  ${show == true ? 'top-[55px] left-0 bg-[#fff] w-full  duration-500 ease-in-out' : 'top-[55px] left-[-100%]  duration-500 ease-in-out w-full'}`}>
                     <li className='font-DM font-bold text-[14px] text-[#262626] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link to="/">Home</Link></li>
                     <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link to="/product">Shop</Link></li>
-                    <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link>About</Link></li>
-                    <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link>Contacts</Link></li>
+                    <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link to="/about">About</Link></li>
+                    <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link to="contact">Contacts</Link></li>
                     <li className='font-DM font-normal text-[14px] text-[#767676] lg:px-5 lg:py-0 py-2 cursor-pointer'><Link>Journal</Link></li>
                 </ul>
             </div>

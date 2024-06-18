@@ -24,6 +24,12 @@ const Post = ({ allPage, categoryFilter, multi }) => {
     setCount(false)
   }
 
+  let handleFilHide = ()=>{
+    setCount(true)
+    let filterVag = categoryFilter.slice(0,5)
+    setFilterShow(filterVag)
+  }
+
   let handlePcart = (item)=>{
     dispatch(addToCart({...item, qun:1}))
     setTimeout(()=>{
@@ -84,11 +90,14 @@ const Post = ({ allPage, categoryFilter, multi }) => {
           </div>
 
           {count
-          ? categoryFilter.length > 5 &&
+          ?
+           categoryFilter.length > 5 &&
           <div className="">
-          <h2 onClick={handleFilShow}>Show All</h2>
+          <h2 onClick={handleFilShow} className=' px-2 py-2 text-center font-dm font-normal w-[100px] border-[1px] border-[#262626] rounded-[5px] hover:bg-[#262626] hover:text-[#fff] duration-500'>Show All</h2>
           </div>
-          : <h2>Show less</h2>
+          :
+          categoryFilter.length > 5 && 
+          <h2 onClick={()=>handleFilHide()} className=' px-2 py-2 text-center font-dm font-normal w-[100px] border-[1px] border-[#262626] rounded-[5px] hover:bg-[#262626] hover:text-[#fff] duration-500'>Show less</h2>
         }
 
          </div>

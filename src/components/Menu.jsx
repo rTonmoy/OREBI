@@ -7,6 +7,7 @@ import { useRef } from "react";
 import cart from "../assets/cart.png";
 import { ImCross } from "react-icons/im";
 import {useSelector} from "react-redux";
+import { Link } from "react-router-dom";
 
 const Menu = () => {
   let data = useSelector((state)=>state.product.cartItem)
@@ -175,7 +176,7 @@ const Menu = () => {
                   </div>
                 }
                 <div ref={cartMenu} className="relative">
-                  {data.length ? <div className="bg-[#F5F5F3] w-[20px] h-[20px] absolute top-[-12px] left-[12px] text-center leading-[20px] rounded-full">{data.length}</div> : ""}
+                  {data.length ? <div className="bg-[#F5F5F3] w-[20px] h-[20px] absolute top-[-12px] left-[12px] text-center leading-[20px] rounded-full text-[red] font-DM font-bold">{data.length}</div> : ""}
                   <FaShoppingCart className="text-[20px]" />
                 </div>
               </div>
@@ -201,10 +202,10 @@ const Menu = () => {
                     </div>
                     <div className="flex justify-between py-[20px]">
                         <div className="">
-                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>View Cart</a>
+                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '><Link to="/cart">View Cart</Link></a>
                         </div>
                         <div className="">
-                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '>Checkout</a>
+                            <a  className='lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 '><Link to="/checkout">Checkout</Link></a>
                         </div>
                     </div>
                 </div>
