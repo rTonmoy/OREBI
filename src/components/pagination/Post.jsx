@@ -32,9 +32,6 @@ const Post = ({ allPage, categoryFilter, multi }) => {
 
   let handlePcart = (item)=>{
     dispatch(addToCart({...item, qun:1}))
-    setTimeout(()=>{
-      navigate("/product")
-    })
   }
 
   return (
@@ -105,9 +102,10 @@ const Post = ({ allPage, categoryFilter, multi }) => {
          <div className={`${multi == "activeMulti" ? "" : "flex justify-between flex-wrap"}`}>
           {allPage.map((item) => (
           <div className="w-[32%]">
-             <Link to={`/product/${item.id}`}>
             <div className="relative group overflow-hidden ">
+             <Link to={`/product/${item.id}`}>
               <img src={item.thumbnail} className="w-full h-[320px]" alt="" />
+              </Link>
               <div className="bg-[rgba(255,255,255,0.79)] py-5 absolute bottom-[-150px] left-0 w-full group-hover:bottom-0 duration-500 ease-in-out">
                 <div className="flex items-center justify-end gap-x-3 py-1 mr-4">
                   <p className=" font-DM font-normal text-[15px] text-[#767676] hover:text-[#262626] hover:font-bold duration-500 ease-in-out">
@@ -142,7 +140,7 @@ const Post = ({ allPage, categoryFilter, multi }) => {
                 </h3>
               </div>
             </div>
-            </Link>
+            
           </div>
         ))}
          </div>

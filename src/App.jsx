@@ -13,6 +13,7 @@ import Myaccount from "./pages/Myaccount"
 import Error404 from "./pages/Error404"
 
 let router = createBrowserRouter(createRoutesFromElements(
+  <>
   <Route element={<Root/>}>
     <Route path="/" element={<Home/>}></Route>
     <Route path="/product" element={<Product/>}></Route>
@@ -24,8 +25,9 @@ let router = createBrowserRouter(createRoutesFromElements(
     <Route path="/login" element={<Login/>}></Route>
     <Route path="/signup" element={<Signup/>}></Route>
     <Route path="/myaccount" element={<Myaccount/>}></Route>
-    <Route path="/error" element={<Error404/>}></Route>
   </Route>
+  <Route path="/*" element={<Error404/>}></Route>
+  </>
 ))
 
 function App() {
