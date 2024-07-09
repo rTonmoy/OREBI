@@ -4,14 +4,19 @@ import { getAuth, createUserWithEmailAndPassword,  updateProfile } from "firebas
 import {useNavigate} from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getDatabase, ref, set } from "firebase/database";
+
 
 const Signup = () => {
     
   const auth = getAuth();
+  const db = getDatabase();
+
 
   const [yes, setYes] = useState("yes");
 
   let [fullName, setFullName] = useState("");
+  let [lastName, setLastName] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let navigate = useNavigate("")
@@ -25,18 +30,30 @@ const Signup = () => {
   let handlePassword = (e) => {
     setPassword(e.target.value);
   };
+  let handleLastName = (e) => {
+    setLastName(e.target.value);
+  };
+
 
   let handleSubmit = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
         updateProfile(auth.currentUser, {
-            displayName: fullName
+            displayName: fullName,
           }).then(() => {
             toast("SignUP Done!")
             setTimeout(()=>{
                 navigate("/login")
             },2000)
-          }).catch((error) => {
+          }).then(()=>{
+            set(ref(db, 'users/' + user.user.uid), {
+              firstName: fullName,
+              email: email,
+              lastName: lastName,
+            });
+          
+          })
+          .catch((error) => {
             // An error occurred
             // ...
           });
@@ -95,6 +112,7 @@ const Signup = () => {
                       Last Name
                     </h5>
                     <input
+                    onChange={handleLastName}
                       className=" py-[20px] text-[14px] text-[#767676] font-dm outline-none"
                       type="text"
                       placeholder="Last Name"
@@ -292,7 +310,7 @@ const Signup = () => {
                 onClick={handleSubmit}
                 className="text-[16px] text-[#262626] font-dm font-bold h-[50px] w-[200px] border-[1px] border-[#262626] hover:bg-[#262626] hover:text-[#fff] ease-in-out duration-300"
               >
-                Log in
+                Sign Up
               </button>
             </div>
           </div>

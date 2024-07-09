@@ -12,7 +12,7 @@ import { ApiData } from "./ContextApi";
 
 const Menu = () => {
   let info = useContext(ApiData);
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   let data = useSelector((state) => state.product.cartItem);
   let [cateshow, setCateshow] = useState(false);
   let cateMenu = useRef();
@@ -40,20 +40,19 @@ const Menu = () => {
     }
   };
 
-  let handleSearchClick = ()=>{
-    navigate("/product")
-  }
+  let handleSearchClick = () => {
+    navigate("/product");
+  };
 
-  let enter = (e)=>{
-    navigate("/product")
-  }
+  let enter = (e) => {
+    navigate("/product");
+  };
 
-  let handleSingleP = (id)=>{
-    navigate(`/product/${id}`)
-    setSearchFilter("")
-    setSearchChange("")
-  }
-  
+  let handleSingleP = (id) => {
+    navigate(`/product/${id}`);
+    setSearchFilter("");
+    setSearchChange("");
+  };
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -242,8 +241,8 @@ const Menu = () => {
             <div className="w-[45%]">
               <div className="relative">
                 <input
-                value={searchChange}          
-                onKeyUp={enter}
+                  value={searchChange}
+                  onKeyUp={enter}
                   onChange={handleChange}
                   type="text"
                   className="w-full h-[45px] box-border pl-[15px] outline-none"
@@ -251,27 +250,34 @@ const Menu = () => {
                 />
                 <div className="absolute top-[50%] translate-y-[-50%] right-[15px]">
                   <div onClick={handleSearchClick} className="">
-                  <FaSearch />
+                    <FaSearch />
                   </div>
                 </div>
-                {searchFinter.length > 0 && 
-                <div className="absolute z-40 top-[45px] lg:left-0 h-[500px] overflow-y-scroll">
-                  {searchFinter.map((item)=>(
-                                      <div onClick={()=>handleSingleP(item.id)} className="flex bg-[#F5F5F3] lg:py-[20px] lg:px-[20px] px-[10px] py-[10px]">
-                                      <div className="flex items-center justify-between w-[350px]">
-                                        <div className="">
-                                          <img className="w-[100px] h-[100px]" src={item.thumbnail} alt="" />
-                                        </div>
-                                        <div className="lg:px-0 px-6">
-                                          <h4 className="text-[14px ] text-[#262626] font-dm font-bold">
-                                            {item.title}
-                                          </h4>
-                                        </div>
-                                      </div>
-                                    </div>
-                  ))}
-                </div>
-                }
+                {searchFinter.length > 0 && (
+                  <div className="absolute z-40 top-[45px] lg:left-0 h-[500px] overflow-y-scroll">
+                    {searchFinter.map((item) => (
+                      <div
+                        onClick={() => handleSingleP(item.id)}
+                        className="flex bg-[#F5F5F3] lg:py-[20px] lg:px-[20px] px-[10px] py-[10px]"
+                      >
+                        <div className="flex items-center justify-between w-[350px]">
+                          <div className="">
+                            <img
+                              className="w-[100px] h-[100px]"
+                              src={item.thumbnail}
+                              alt=""
+                            />
+                          </div>
+                          <div className="lg:px-0 px-6">
+                            <h4 className="text-[14px ] text-[#262626] font-dm font-bold">
+                              {item.title}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-[25%]  relative">
@@ -307,17 +313,19 @@ const Menu = () => {
               </div>
               {cartshow && (
                 <div className="absolute z-40 top-[40px] lg:right-0 right-[-7px]">
-                  <div className="flex bg-[#F5F5F3] lg:py-[20px] lg:px-[20px] px-[10px] py-[10px]">
+                  {data.map((item)=>(
+                    <>
+                                      <div className="flex bg-[#F5F5F3] lg:py-[20px] lg:px-[20px] px-[10px] py-[10px]">
                     <div className="flex items-center justify-between w-[350px]">
                       <div className="">
-                        <img src={cart} alt="" />
+                        <img className="w-[100px] h-[100px]" src={item.thumbnail} alt="" />
                       </div>
                       <div className="lg:px-0 px-6">
                         <h4 className="text-[14px ] text-[#262626] font-dm font-bold">
-                          Black Smart Watch
+                          {item.title}
                         </h4>
                         <p className="text-[14px ] text-[#262626] font-dm font-bold">
-                          $44.00
+                          ${item.price}
                         </p>
                       </div>
                       <div className="ml-[30px]">
@@ -326,17 +334,7 @@ const Menu = () => {
                     </div>
                   </div>
                   <div className="bg-[white] py-[20px] px-[40px] lg:px-[20px]">
-                    <div className="">
-                      <h3 className="">
-                        <span className="text-[16px] text-[rgba(38,38,38,0.67)] font-dm font-normal">
-                          Subtotal:
-                        </span>{" "}
-                        <span className="text-[16px] text-[rgb(38,38,38)] font-dm font-bold">
-                          {" "}
-                          $44.00
-                        </span>
-                      </h3>
-                    </div>
+
                     <div className="flex justify-between py-[20px]">
                       <div className="">
                         <a className="lg:py-[16px] py-[14px] px-[32px] lg:px-[40px] border text-[16px] text-[#262626] font-dm font-normal hover:bg-[#262626] hover:text-[white] duration-500 ">
@@ -350,6 +348,8 @@ const Menu = () => {
                       </div>
                     </div>
                   </div>
+                    </>
+                  ))}
                 </div>
               )}
             </div>
